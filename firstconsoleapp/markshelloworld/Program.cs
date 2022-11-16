@@ -2,7 +2,7 @@
 
 class Program
 {
-    //the main method id the entry point of every C# program
+    //the main method is the entry point of every C# program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello, Mark!");
