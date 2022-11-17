@@ -5,17 +5,21 @@ class Program
     {
         //Object instantiation
         Pokemon charmander = new Pokemon("charmander");
+        Pokemon squirtle = new Pokemon("squirtle");
         
         //You can use dot notation to access fields and methods available to an object of that class.
         charmander.type = "fire";
+        charmander.dexNumber = 4;
+        Console.WriteLine(charmander.ToString());
+        Console.WriteLine(squirtle.ToString());
         
         //This is how you call an instance method. It "belongs to" objects of that class.
         //You must instantiate an object of that class to call it.
-        charmander.IsPokemon();
+        //charmander.IsPokemon();
 
         //This is how you call a Class/static method. It "belongs to" the class. You do not need 
         //to instantiate an object to call it. 
-        Pokemon.Sound();
+        //Pokemon.Sound();
 
     }
 }
@@ -34,7 +38,10 @@ class Pokemon
     //This field is also private. When no access modifier is explicitly given, the compiler treats the
     //field as private.
     int hitpoints;
-    int dexNumber;
+
+    //Auto-property syntax. This creates a backing field, along with the getter and setter. 
+    public int dexNumber {get; set;}
+    
     int weight;
     int level;
 
@@ -77,4 +84,11 @@ class Pokemon
     {
         Console.WriteLine("*pokemon noises*");
     }
+
+    //Overriding
+    public override string ToString()
+    {
+        return $"My name is {name}, number {dexNumber}. I'm a {type} I am a pokemon.";
+    }
+
 }
