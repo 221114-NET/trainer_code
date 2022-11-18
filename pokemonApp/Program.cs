@@ -27,7 +27,6 @@ class Program
 class Pokemon 
 {
     //Fields
-
     //Fields are private by default. This field was explicitly declared private.
     private string name;
     
@@ -72,7 +71,6 @@ class Pokemon
     }
 
     //Methods
-
     //This method is an instance method. It can be called by an object of class Pokemon using dot-notation.
     public void IsPokemon()
     {
@@ -86,9 +84,15 @@ class Pokemon
     }
 
     //Overriding
+    //The keyword "override" tells the compiler to over-ride a method from the parent class.
+    //in this case, we have a method ToString() inherited from the System.Object class.
+    //and we have written our own implementation. 
     public override string ToString()
     {
         return $"My name is {name}, number {dexNumber}. I'm a {type} I am a pokemon.";
     }
 
 }
+
+
+
