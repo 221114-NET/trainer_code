@@ -26,15 +26,27 @@ class Program
         // V2 make a do/while loop to keep playing the game (depending on user desire) after a game ends.
 
         //present the three choices and how to input user choice
-        Console.WriteLine("Please enter:\n\tROCK,\n\tPAPER, \n\tSCISSORS");
 
         // get the users input
         // error check the input
-        string? userInput = Console.ReadLine();
-        Console.WriteLine($"The user inputted - {userInput}");
+        // string? userInput = Console.ReadLine();
+        //Console.WriteLine($"The user inputted - {userInput}");
 
         //here we will compare the input to the ex[ected string values, then assign the value to it's corresponding string.
-        int isRock = String.Compare(userInput, 0, "ROCK", 0, 4);
+        //int isRock = String.Compare(userInput, 0, "ROCK", 0, 4);
+        int userChoice = -1;
+        while (userChoice < 0)
+        {
+            Console.WriteLine("Please enter:\n\tROCK,\n\tPAPER, \n\tSCISSORS");
+            userChoice = RpsService.ValidateUserChoice(Console.ReadLine());
+            if (userChoice < 0)
+            {
+                Console.WriteLine($"Hey, bub.. that's not a valid choice.");
+            }
+
+            Choices usersEnumChoice = (Choices)userChoice;
+            Console.WriteLine($"The user chose {usersEnumChoice}");
+        }
 
         // Challenge - finish out this code section to validate the users input is ROCK or PAPER or SCISSORS.
         // then assign the correct int to the choice.
@@ -67,7 +79,7 @@ class Program
         If it's successful, it will return TRUE and place 
         the value into the out variable
         */
-        bool userInputValidated = Int32.TryParse(userInput, out userInt);
+        //bool userInputValidated = Int32.TryParse(userInput, out userInt);
 
 
         // generate the computers random choices
@@ -98,17 +110,6 @@ class Program
         // V2 - update players W/L record
 
         // V2 - ask to play again
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
