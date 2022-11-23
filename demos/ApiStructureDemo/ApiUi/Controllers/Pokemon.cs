@@ -12,9 +12,12 @@ namespace ApiUi.Controllers
     [Route("api/[controller]")]
     public class Pokemon : ControllerBase
     {
-        // this is tightly couples modules
-        private readonly BusinessLayerClass _busLayer = new BusinessLayerClass();
-
+        
+        private readonly IBusinessLayerClass _ibus;
+        
+        public Pokemon(IBusinessLayerClass ibus){
+            _ibus = ibus;
+        }
 
         //model binding happens here.
         // The model binding system will look at all the properties of the json string 
@@ -25,7 +28,7 @@ namespace ApiUi.Controllers
             // action methods (what this method is) are for routing to the correct busiess layet method. 
             // do as little manipulation as possible here.
             p.Name = "Marizard";
-            PokemonClass p1 = _busLayer.PostPokemon(p);
+            PokemonClass p1 = _ibus.PostPokemon(p);
 
             return Created("mydb/pokemon/itshere", p1);
         }
