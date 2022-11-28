@@ -7,8 +7,21 @@ using ModelsLayer;
 
 namespace RepoLayer
 {
-    public class RepositoryClass
+    public interface IRepositoryClass
     {
+        PokemonClass PostPokemon(PokemonClass p);
+    }
+
+    public class RepositoryClass : IRepositoryClass
+    {
+
+        //Giving it a Logger
+        private readonly IMyLogger _logger;
+
+        public RepositoryClass(IMyLogger logger){
+            _logger = logger;
+        }
+
         public PokemonClass PostPokemon(PokemonClass p)
         {
             p.Dexterity = 100;
@@ -25,8 +38,9 @@ namespace RepoLayer
 
                 File.WriteAllText("PokemonList.json", pliststr);
 
-                return p;
+                _logger.LogStuff(p);
 
+                return p;
             }
             else
             {
@@ -36,7 +50,7 @@ namespace RepoLayer
                 string pliststr = JsonSerializer.Serialize(plist);
 
                 File.WriteAllText("PokemonList.json", pliststr);
-
+                _logger.LogStuff(p);
                 return p;
             }
 
