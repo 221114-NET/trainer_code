@@ -12,16 +12,18 @@ namespace ApiUi.Controllers
     [Route("api/[controller]")]
     public class Pokemon : ControllerBase
     {
-        
+
         private readonly IBusinessLayerClass _ibus;
-        
-        public Pokemon(IBusinessLayerClass ibus){
+
+        public Pokemon(IBusinessLayerClass ibus)
+        {
             _ibus = ibus;
         }
 
         //model binding happens here.
         // The model binding system will look at all the properties of the json string 
         // and try to match them with the designated model
+        // "localhost://api/pokemon/myguyishere"
         [HttpPost("myguyishere")]
         public ActionResult<PokemonClass> PostPokemon(PokemonClass p)
         {
@@ -31,6 +33,13 @@ namespace ApiUi.Controllers
             PokemonClass p1 = _ibus.PostPokemon(p);
 
             return Created("mydb/pokemon/itshere", p1);
+        }
+
+        [HttpPost("postpokemonspecific")]
+        public ActionResult<PokemonSpecific> PostPS(PokemonSpecific ps)
+        {
+            PokemonSpecific ps1 = this._ibus.PostPokemonSpecific(ps);
+            return Created("mydb/pokemon/itshere", ps1);
         }
 
     }

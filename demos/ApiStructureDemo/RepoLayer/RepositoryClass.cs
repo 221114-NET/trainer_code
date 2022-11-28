@@ -10,6 +10,7 @@ namespace RepoLayer
     public interface IRepositoryClass
     {
         PokemonClass PostPokemon(PokemonClass p);
+        PokemonSpecific PostPokemonSpecific(PokemonSpecific ps);
     }
 
     public class RepositoryClass : IRepositoryClass
@@ -18,7 +19,8 @@ namespace RepoLayer
         //Giving it a Logger
         private readonly IMyLogger _logger;
 
-        public RepositoryClass(IMyLogger logger){
+        public RepositoryClass(IMyLogger logger)
+        {
             _logger = logger;
         }
 
@@ -55,5 +57,12 @@ namespace RepoLayer
             }
 
         }
+
+        public PokemonSpecific PostPokemonSpecific(PokemonSpecific ps)
+        {
+            ps.Name = ps.Name + "-gatherer";
+            return ps;
+        }
+
     }
 }
