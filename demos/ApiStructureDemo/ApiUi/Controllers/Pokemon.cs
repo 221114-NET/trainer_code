@@ -42,5 +42,12 @@ namespace ApiUi.Controllers
             return Created("mydb/pokemon/itshere", ps1);
         }
 
+        [HttpPost("castingpostpokemonspecific")]
+        public ActionResult<PokemonSpecific> PostPS(PokemonClass ps)
+        {
+            PokemonClass ps2 = this._ibus.CastingPostPokemonSpecific((object)ps);
+            return Created("mydb/pokemon/itshere", ps2);
+        }
+
     }
 }
