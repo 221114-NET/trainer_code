@@ -9,11 +9,21 @@ using RepoLayer;
 The business layer is used for manipulating data, creating mondels, etc.. that can be sent to the 
 repo layer and returned to the UI layer.
 */
-namespace BusinessLayer
+namespace BusinessLayer 
 {
-    public class BusinessLayerClass
+    public interface IBusinessLayerClass
     {
-        private readonly RepositoryClass _repo = new RepositoryClass();
+        PokemonClass PostPokemon(PokemonClass p);
+    }
+
+    public class BusinessLayerClass : IBusinessLayerClass
+    {
+        private readonly IRepositoryClass _repo;
+
+        public BusinessLayerClass(IRepositoryClass repo)
+        {
+            _repo = repo;
+        }
 
         public PokemonClass PostPokemon(PokemonClass p)
         {
