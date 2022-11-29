@@ -19,14 +19,6 @@ class Program
 
             Joke returnedJoke = JsonSerializer.Deserialize<Joke>(responseBody)!;
             Console.WriteLine(returnedJoke.ToString());
-        }
-
-
-        
-
-        
-
-
-        
+        }        
     }
 }
