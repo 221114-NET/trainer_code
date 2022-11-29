@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ModelsLayer;
 using BusinessLayer;
+using System.Text.Json;
+
 
 namespace ApiUi.Controllers
 {
@@ -40,6 +42,34 @@ namespace ApiUi.Controllers
         {
             PokemonSpecific ps1 = this._ibus.PostPokemonSpecific(ps);
             return Created("mydb/pokemon/itshere", ps1);
+        }
+
+        [HttpPost("castingpostpokemonspecific")]
+        public ActionResult<PokemonSpecific> PostPS(PokemonClass ps)
+        {
+            PokemonClass ps2 = this._ibus.CastingPostPokemonSpecific((object)ps);
+            return Created("mydb/pokemon/itshere", ps2);
+        }
+
+        [HttpPost("test")]
+        public ActionResult<PokemonSpecific> PostPS(object o)
+        {
+            var r = Request.Body;
+            r.Position = 0;
+
+
+
+            var reader = new StreamReader(HttpContext.Request.Body);
+            // InputStream.Position = 0;
+
+            string rawBod = reader.ReadToEnd()!;
+            Console.WriteLine(rawBod);
+            var req = JsonSerializer.Deserialize<PokemonClass>(rawBod)!;
+
+            Console.WriteLine($"color is => {req.Color}");
+
+            PokemonSpecific ps = new PokemonSpecific("mark", "christopher", "moore", 1, 1);
+            return Created("mydb/pokemon/itshere", ps);
         }
 
     }

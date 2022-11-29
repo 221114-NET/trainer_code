@@ -13,6 +13,7 @@ namespace BusinessLayer
 {
     public interface IBusinessLayerClass
     {
+        PokemonClass CastingPostPokemonSpecific(object ps);
         PokemonClass PostPokemon(PokemonClass p);
         PokemonSpecific PostPokemonSpecific(PokemonSpecific ps);
     }
@@ -24,6 +25,27 @@ namespace BusinessLayer
         public BusinessLayerClass(IRepositoryClass repo)
         {
             _repo = repo;
+        }
+
+        public PokemonClass CastingPostPokemonSpecific(object ps)
+        {
+            if (ps is PokemonClass)// use is to cehck if a type is actually another types.. of a type you want to check for.
+            {
+                Console.WriteLine($"This object is a {ps.ToString()}");
+                PokemonClass ps1 = ps as PokemonClass;// use as to convert to another type.
+                ps1.Name = "Did it work";
+                return ps1;
+            }
+            else if (ps is PokemonSpecific)
+            {
+                Console.WriteLine($"This object is a {ps.ToString()}");
+                return (PokemonClass)ps;
+            }
+            else
+            {
+                Console.WriteLine($"This object is a {ps.ToString()}");
+                return (PokemonClass)ps;
+            }
         }
 
         /// <summary>
