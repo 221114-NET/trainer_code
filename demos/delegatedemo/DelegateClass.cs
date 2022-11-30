@@ -19,5 +19,11 @@ namespace delegatedemo
         {
             jumblies(p, x, y);
         }
+
+        public static string RegularMethod(Func<int, string, string> x, int y, string z)
+        {
+            // MarksDel returns a string and has 2 params, a int and a string.
+            return x(y, z);
+        }
     }
 }

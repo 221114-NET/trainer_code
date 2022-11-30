@@ -8,9 +8,8 @@ namespace delegatedemo
 {
     public class Program
     {
-        public delegate string MarksDelegateType(int x, string y);
-        public delegate void MarksDelegateType1(Person p, int x, string y);
-
+        public delegate string MarksDelegateType(int x, string y);// this can be represented by a Func delegate. remember this by thinking about how all methods (should) return something. Func delegates have a return type that's not void.
+        public delegate void MarksDelegateType1(Person p, int x, string y);// this can be represented by a Action delegate. Remember this by thinking about this isn't a Func delegate.
 
         public static void Main(string[] args)
         {
@@ -29,7 +28,14 @@ namespace delegatedemo
             Person p = new Person();
 
             DelegateClass.EnvokeDelRegularMethod(p, 100, "ginnie", mdt2);
-            Console.WriteLine($"The first name is =>{p.Fname} and the last naem is => {p.Lname}");
+            //Console.WriteLine($"The first name is =>{p.Fname} and the last naem is => {p.Lname}");
+
+            Func<int, string, string> marksFunkyDelegate = MethodClass.AppendString;
+            string result2 = DelegateClass.RegularMethod(marksFunkyDelegate, 5, "Mark is kewl...");
+            Console.WriteLine(result2);
+
+
+
 
 
         }
