@@ -1,0 +1,25 @@
+
+ public static void miniMaxSum(List<int> arr)
+    {
+        long maxNum = Int64.MinValue;
+        long minNum = Int64.MaxValue;
+        long arraySum = 0;
+        
+        maxNum = (long)arr.Max();
+        minNum = (long)arr.Min();
+        arraySum = (long)arr.Sum(v => (long)v);
+        
+        Console.Write($"{arraySum-maxNum} {arraySum-minNum}");
+        
+        
+        
+        // get min and max values of the array
+        
+        // sum the array
+        
+        // min Sum is arraySum - maxNum
+        
+        // max Sum is arraySum - minNum
+        
+        
+    }
