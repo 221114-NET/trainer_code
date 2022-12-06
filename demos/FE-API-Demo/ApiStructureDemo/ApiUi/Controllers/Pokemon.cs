@@ -14,12 +14,55 @@ namespace ApiUi.Controllers
     [Route("api/[controller]")]
     public class Pokemon : ControllerBase
     {
-
         private readonly IBusinessLayerClass _ibus;
 
         public Pokemon(IBusinessLayerClass ibus)
         {
-            _ibus = ibus;
+            this._ibus = ibus;
+        }
+
+        [HttpGet("Customer/{id}")]
+        public ActionResult<List<Customer>> Customers(int? id)
+        {
+            //checkif the id is null or 0
+            if (id == null || id == 0)
+            {
+                //get the whole list.
+                List<Customer> customerList = this._ibus.GetCustomerList();
+                if (customerList == null)
+                {
+                    return Problem("It's not you. It's us.... We cannot deliver.");
+                }
+                else return Ok(customerList);
+            }
+            else
+            {
+                return null;// TODO
+            }
+
+        }
+
+        /// <summary>
+        /// This method will post a new customer to the Db
+        /// it returns the creatd customer is successful
+        /// otherwise, null.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        [HttpPost("PostCustomer")]
+        public ActionResult<Customer> PostCustomer(Customer c)
+        {
+            //call a business layer method to deal with this accordingly....
+            if (ModelState.IsValid)
+            {
+                Customer c1 = this._ibus.PostCustomer(c);
+            }
+            else
+            {
+                return NotFound("that modelbinding did't work");
+            }
+            // return what the business layer returned to this calling method.
+            return Created($"https://localhost:7007/api/pokemon/getcustomer/{c.CustomerId}", c);
         }
 
         //model binding happens here.
