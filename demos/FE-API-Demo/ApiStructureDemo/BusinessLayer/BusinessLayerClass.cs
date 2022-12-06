@@ -14,6 +14,8 @@ namespace BusinessLayer
     public interface IBusinessLayerClass
     {
         PokemonClass CastingPostPokemonSpecific(object ps);
+        List<Customer> GetCustomerList();
+        Customer PostCustomer(Customer c);
         PokemonClass PostPokemon(PokemonClass p);
         PokemonSpecific PostPokemonSpecific(PokemonSpecific ps);
     }
@@ -46,6 +48,32 @@ namespace BusinessLayer
                 Console.WriteLine($"This object is a {ps.ToString()}");
                 return (PokemonClass)ps;
             }
+        }
+
+        public List<Customer> GetCustomerList()
+        {
+            // callt he repo method to get the list.
+            List<Customer> l = this._repo.GetCustomerList();
+            return l;
+
+            // Lets play with LINQ!
+            // List<Customer> l2 = l.Where(x => x.LastName == "Moore" && x.Remarks.Contains("est")).ToList();// write a 'Predicate' into the arg of the method. 
+            // List<Customer> l3 = l.OrderByDescending(x => x.CustomerId).ToList();
+            // foreach (Customer c in l3)
+            // {
+            //     Console.WriteLine($"CustomerId - {c.CustomerId}, Fname- {c.FirstName}, lname -  {c.LastName}");
+            // }
+        }
+
+        public Customer PostCustomer(Customer c)
+        {
+            // you might want to do some validation here... it's best practice to do validation in every method.
+
+            // alter the data... or manipulate it somehow.
+
+            // pass the data to the Repo layer.
+            Customer c1 = this._repo.PostCustomer(c);
+            return c1;
         }
 
         /// <summary>
