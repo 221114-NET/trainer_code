@@ -14,8 +14,8 @@ namespace BusinessLayer
     public interface IBusinessLayerClass
     {
         PokemonClass CastingPostPokemonSpecific(object ps);
-        List<Customer> GetCustomerList();
-        Customer PostCustomer(Customer c);
+        Task<List<Customer>> GetCustomerListAsync();
+        Task<Customer> PostCustomerAsync(Customer c);
         PokemonClass PostPokemon(PokemonClass p);
         PokemonSpecific PostPokemonSpecific(PokemonSpecific ps);
     }
@@ -50,10 +50,10 @@ namespace BusinessLayer
             }
         }
 
-        public List<Customer> GetCustomerList()
+        public async Task<List<Customer>> GetCustomerListAsync()
         {
             // callt he repo method to get the list.
-            List<Customer> l = this._repo.GetCustomerList();
+            List<Customer> l = await this._repo.GetCustomerListAsync();
             return l;
 
             // Lets play with LINQ!
@@ -65,14 +65,14 @@ namespace BusinessLayer
             // }
         }
 
-        public Customer PostCustomer(Customer c)
+        public async Task<Customer> PostCustomerAsync(Customer c)
         {
             // you might want to do some validation here... it's best practice to do validation in every method.
 
             // alter the data... or manipulate it somehow.
 
             // pass the data to the Repo layer.
-            Customer c1 = this._repo.PostCustomer(c);
+            Customer c1 = await this._repo.PostCustomerAsync(c);
             return c1;
         }
 

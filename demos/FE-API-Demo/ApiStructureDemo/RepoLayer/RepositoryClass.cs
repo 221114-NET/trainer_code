@@ -14,8 +14,8 @@ Server=tcp:11142022-batch-server.database.windows.net,1433;Initial Catalog=11142
 
     public interface IRepositoryClass
     {
-        List<Customer> GetCustomerList();
-        Customer PostCustomer(Customer c);
+        Task<List<Customer>> GetCustomerListAsync();
+        Task<Customer> PostCustomerAsync(Customer c);
         PokemonClass PostPokemon(PokemonClass p);
         PokemonSpecific PostPokemonSpecific(PokemonSpecific ps);
     }
@@ -31,7 +31,7 @@ Server=tcp:11142022-batch-server.database.windows.net,1433;Initial Catalog=11142
             _logger = logger;
         }
 
-        public List<Customer> GetCustomerList()
+        public async Task<List<Customer>> GetCustomerListAsync()
         {
             // user ADO.NET to push the data to the DB.
             SqlConnection conn = new SqlConnection("Server=tcp:11142022-batch-server.database.windows.net,1433;" +
@@ -43,18 +43,20 @@ Server=tcp:11142022-batch-server.database.windows.net,1433;Initial Catalog=11142
             SqlCommand command = new SqlCommand($"SELECT * FROM Customers", conn);
             //Open the Connection - you can access the SqlConnection object directly or through the SqlCommand obj!
             command.Connection.Open();
-            SqlDataReader ret = command.ExecuteReader();
+            Task<SqlDataReader> ret = command.ExecuteReaderAsync();
 
             List<Customer> list = new List<Customer>();
-            while (ret.Read())
+
+            SqlDataReader ret1 = await ret;
+            while (await ret1.ReadAsync())
             {
-                Customer c = Mapper.DbToCustomer(ret);
+                Customer c = Mapper.DbToCustomer(ret1);
                 list.Add(c);
             }
             return list;
         }
 
-        public Customer PostCustomer(Customer c)
+        public async Task<Customer> PostCustomerAsync(Customer c)
         {
             // user ADO.NET to push the data to the DB.
             SqlConnection conn = new SqlConnection("Server=tcp:11142022-batch-server.database.windows.net,1433;" +
@@ -65,7 +67,7 @@ Server=tcp:11142022-batch-server.database.windows.net,1433;Initial Catalog=11142
             //configure the SQL query along with the connection object
             SqlCommand command = new SqlCommand($"INSERT INTO Customers (FirstName, LastName, LastOrderDate, Remarks) VALUES (@FirstName,@LastName,@LastOrderDate,@Remarks);", conn);
             //Open the Connection - you can access the SqlConnection object directly or through the SqlCommand obj!
-            command.Connection.Open();
+            command.Connection.OpenAsync();
             // conn.Open();
 
             // add the parameters to the query - do this to prevent Sql Injection
@@ -73,7 +75,7 @@ Server=tcp:11142022-batch-server.database.windows.net,1433;Initial Catalog=11142
             command.Parameters.AddWithValue("@LastName", c.LastName);
             command.Parameters.AddWithValue("@LastOrderDate", c.LastOrderDate);
             command.Parameters.AddWithValue("@Remarks", c.Remarks);
-            int rowsAffected = command.ExecuteNonQuery();
+            int rowsAffected = await command.ExecuteNonQueryAsync();
 
             // verify that the query succeeded.
             if (rowsAffected == 1)
