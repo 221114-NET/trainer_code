@@ -7,7 +7,7 @@ namespace tests.api;
 public class UnitTest1
 {
     [Fact]
-    public void Test1()
+    public async Task Test1()
     {
         // we will MOCK (not MOQ, that's a testing applicaiton) the dependencies so that our unit tests test the MUT, NOT the dependency.
 
@@ -16,7 +16,7 @@ public class UnitTest1
         BusinessLayerClass bl = new BusinessLayerClass(i);
 
         //ACT
-        List<Customer> list = bl.GetCustomerList();
+        List<Customer> list = await bl.GetCustomerListAsync();
 
         //Assert
         Assert.Equal(list[0].FirstName, "m1");

@@ -9,7 +9,7 @@ namespace tests.api
 {
     public class MockRepoLayer : IRepositoryClass
     {
-        public List<Customer> GetCustomerList()
+        public async Task<List<Customer>> GetCustomerListAsync()
         {
             Customer c1 = new Customer(1, "m1", "m1", DateTime.Now, "my one");
             Customer c2 = new Customer(1, "m2", "m2", DateTime.Now, "my two");
@@ -18,10 +18,9 @@ namespace tests.api
             Customer c5 = new Customer(1, "m5", "m5", DateTime.Now, "my five");
             List<Customer> list = new List<Customer>() { c1, c2, c3, c4, c5 };
             return list;
-
         }
 
-        public Customer PostCustomer(Customer c)
+        public async Task<Customer> PostCustomerAsync(Customer c)
         {
             throw new NotImplementedException();
         }

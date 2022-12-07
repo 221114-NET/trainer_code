@@ -21,14 +21,14 @@ namespace ApiUi.Controllers
             this._ibus = ibus;
         }
 
-        [HttpGet("Customer/{id}")]
-        public ActionResult<List<Customer>> Customers(int? id)
+        [HttpGet("CustomerAsync/{id}")]
+        public async Task<ActionResult<List<Customer>>> Customers(int? id)
         {
             //checkif the id is null or 0
             if (id == null || id == 0)
             {
                 //get the whole list.
-                List<Customer> customerList = this._ibus.GetCustomerList();
+                List<Customer> customerList = await this._ibus.GetCustomerListAsync();
                 if (customerList == null)
                 {
                     return Problem("It's not you. It's us.... We cannot deliver.");
@@ -49,13 +49,13 @@ namespace ApiUi.Controllers
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        [HttpPost("PostCustomer")]
-        public ActionResult<Customer> PostCustomer(Customer c)
+        [HttpPost("PostCustomerAsync")]
+        public async Task<ActionResult<Customer>> PostCustomerAsync(Customer c)
         {
             //call a business layer method to deal with this accordingly....
             if (ModelState.IsValid)
             {
-                Customer c1 = this._ibus.PostCustomer(c);
+                Customer c1 = await this._ibus.PostCustomerAsync(c);
             }
             else
             {
@@ -99,9 +99,6 @@ namespace ApiUi.Controllers
         {
             var r = Request.Body;
             r.Position = 0;
-
-
-
             var reader = new StreamReader(HttpContext.Request.Body);
             // InputStream.Position = 0;
 
