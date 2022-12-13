@@ -1,0 +1,133 @@
+<!-- HTML - Hypertext Markup Language -->
+
+<!DOCTYPE html> <!-- The DOCTYPE tag defines that this page should be read as HTML -->
+
+<html lang="en"> 
+
+<head> <!--This defines the metadata for the page-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My New Title</title>
+</head>
+
+<!-- This body area contains the content we will see -->
+<body>
+    I can just start writing.
+
+    <p>I can finish adding content to this element.</p>
+
+    <p>There are other tags, that help us add formatting/titles.</p>
+
+    <h1>This is a heading.</h1>
+    <h3>This is a smaller heading.</h3>
+
+
+    <p>This is some <b>BOLD</b> text</p>
+
+    <p>You can play with these formatters <i>as much</i> <u>as you want.</u></p>
+
+
+    <!-- Everything is an element. We use tags to declare them, we add content,
+    and we use attributes to modify them. -->
+
+    <p class="my class" title="my title">This is my new paragraph tag</p>
+    <p class="my class" style="color:blue">This my new <i>new</i> p tag</p>        
+    <!-- This p tag was given an attribute, "class" -->
+    <!-- The global attributes are: class, id, style, title -->
+
+    <!-- Class = Provides a way of classifying and grouping similar elements
+    NOT unique. And can be shared with other elements in this file or others. -->
+    
+    <!-- id = this is a document wide identifier for an element. -->
+    <!-- style = adds style directly to the element. -->
+    <!-- title = used to add subtextual explanation to an element -->
+    
+    <div class="div1">
+        <p>This p element is inside a new div. This can help us target this area of the page later</p>
+        <div class="div2">
+            <p>Whatever this content is.</p>
+        </div>
+    </div>
+
+    <div class="div3">
+        <p>This is my first</p>
+        <p style="color:red">This is my second</p>
+    </div>
+
+    <!-- Lists can be unordered (ul) or ordered (ol) -->
+    <!-- Inside of lists, the items are denoted with (li) tags. -->
+    <div>
+        <ul>
+            <li>First</li>
+            <li>Second</li>
+            <li>Third</li>
+            <li>Fourth</li>
+        </ul>
+    </div>
+
+    <div>
+        <ol>
+            <li>Pancake</li>
+            <li>Ellephant</li>
+        </ol>
+    </div>
+
+    <table>
+        <thead>
+            <th>city</th>
+            <th>state</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>New York</td>
+                <td>NY</td>
+            </tr>
+            <tr>
+                <td>Los Angeles</td>
+                <td>CA</td>
+            </tr>
+            <tr>
+                <td>Miami</td>
+                <td>FL</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>This is</td>
+                <td>my footer</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- When you load in an image, it will default to it's true size. Which may be too large. -->
+    <!-- We can use the height and width attributes to resize the image, to better fit. -->
+    <!-- We can use "px" which sets the height and width with pixels. -->
+    <!-- We can use "%" which scales the image based on a percentage of its original size-->
+    <!-- We can use "vh" - viewport height, and "vw" viewport width. This will dynamically size the image
+    based on the size of your browser window -->
+    <img src="SoAjondrawing.png" alt="jons terrible drawing" width="80vw" height="80vh">
+
+    <!-- The action attribute specifies WHERE the form is sent,
+    the method specifies HOW it's sent. We can only do GET and POST through
+    forms. -->
+    <form action="/action_page.php" method="get">
+        <label for="fname">First Name: </label> <!--The label is just that, a label for input-->
+        <input type="text" id="fnameforcss" name="fname" placeholder="First name here">  
+        <br> <!--This is just a line break-->
+        <label for="lname">Last Name: </label>
+        <!-- type: specifies the type of input to expect. -->
+        <!-- id: just an internal selector-->
+        <!-- name: this is what the field will be in the JSON/XML/etc that the form send
+        to the endpoint for that input -->
+        <input type="email" name="lname" id="lnameforcss" placeholder="Last name here">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Email@email">
+        <br>
+        <input type="submit" value="Is whatever i give it here">
+    </form>
+
+
+</body>
+</html>
