@@ -10,6 +10,7 @@ namespace Pets.Repo
     public interface IRepository
     {
         //Method Signatures
+        public Task<IEnumerable<Pet>> GetAllPets();
         public Task<IEnumerable<Pet>> AddPet(Pet newPet);
     }
 }

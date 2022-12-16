@@ -19,6 +19,34 @@ namespace Pets.Repo
         }
 
         //Methods
+        public async Task<IEnumerable<Pet>> GetAllPets()
+        {
+            List<Pet> list = new List<Pet>();
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            await connection.OpenAsync();
+            string cmdText = "SELECT petId, name, species, color, age FROM Pets;";
+            using SqlCommand cmd = new SqlCommand(cmdText, connection);
+
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                int id = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                string species = reader.GetString(2);
+                string color = reader.GetString(3);
+                int age = reader.GetInt32(4);
+
+                Pet tmp = new Pet(name, species, color, age);
+                list.Add(tmp);
+            }
+
+            await connection.CloseAsync();
+            logger.LogInformation("Executed GetAllPets");
+
+            return list;
+        }
 
         public async Task<IEnumerable<Pet>> AddPet(Pet newPet)
         {
@@ -28,7 +56,7 @@ namespace Pets.Repo
             await connection.OpenAsync();
             string cmdText = "INSERT INTO Pets (name, species, color, age)" +
                              "VALUES (@name, @species, @coloring, @age);" +
-                             "SELECT (id, name, species, color, age) FROM Pets;";
+                             "SELECT petId, name, species, color, age FROM Pets;";
             using SqlCommand cmd = new SqlCommand(cmdText, connection);
 
             cmd.Parameters.AddWithValue("@name", newPet.Name);

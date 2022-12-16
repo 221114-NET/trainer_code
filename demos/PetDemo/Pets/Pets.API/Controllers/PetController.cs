@@ -25,11 +25,21 @@ namespace Pets.API.Controllers
         //Methods
 
         // GET: api/<PetController>
-        //[HttpGet]
-        //public IEnumerable<Pet> Get()
-        //{
-        //    return Pets;
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Pet>>> Get()
+        {
+            IEnumerable<Pet> Pets;
+            try
+            {
+                Pets = await repo.GetAllPets();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+            return Pets.ToList();
+        }
 
         // GET api/<PetController>/5
         //[HttpGet("{id}")]
