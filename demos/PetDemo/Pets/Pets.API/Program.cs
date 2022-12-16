@@ -1,6 +1,12 @@
+using Microsoft.AspNetCore.DataProtection.Repositories;
+using Pets.Repo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+string connectionString = File.ReadAllText("./../../../../../ConnectionString.txt");
+builder.Services.AddSingleton<IRepository>(sp => new SQLRepository(connectionString, sp.GetRequiredService<ILogger<SQLRepository>>()));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

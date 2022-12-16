@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pets.Models\Pets.Models.csproj" />
+    <ProjectReference Include="..\Pets.Repo\Pets.Repo.csproj" />
   </ItemGroup>
 
 </Project>

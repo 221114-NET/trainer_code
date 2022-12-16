@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pets.Models;
+using Pets.Repo;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,48 +11,60 @@ namespace Pets.API.Controllers
     public class PetController : ControllerBase
     {
         //Fields
-        private static List<Pet> Pets = new List<Pet>();
+        private readonly IRepository repo;
+        private readonly ILogger<PetController> logger;
+
 
         //Constructor
-        public PetController()
+        public PetController(IRepository _repo, ILogger<PetController> _logger)
         {
-
+            this.repo = _repo;
+            this.logger = _logger;
         }
 
         //Methods
 
         // GET: api/<PetController>
-        [HttpGet]
-        public IEnumerable<Pet> Get()
-        {
-            return Pets;
-        }
+        //[HttpGet]
+        //public IEnumerable<Pet> Get()
+        //{
+        //    return Pets;
+        //}
 
         // GET api/<PetController>/5
-        [HttpGet("{id}")]
-        public Pet Get(int id)
-        {
-            return Pets[id];
-        }
+        //[HttpGet("{id}")]
+        //public Pet Get(int id)
+        //{
+        //    return Pets[id];
+        //}
 
         // POST api/<PetController>
         [HttpPost]
-        public IEnumerable<Pet> Post([FromBody] Pet value)
+        public async Task<ActionResult<IEnumerable<Pet>>> Post([FromBody] Pet value)
         {
-            Pets.Add(value);
-            return Pets;
+            IEnumerable<Pet> Pets;
+            try
+            {
+                Pets = await repo.AddPet(value);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                return StatusCode(500);
+            }
+            return Pets.ToList();
         }
 
         // PUT api/<PetController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE api/<PetController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<PetController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
