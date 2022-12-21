@@ -23,7 +23,7 @@ Data Structure and Algorithm course
 
     - [Hackerrank](https://www.hackerrank.com/) 
 
-    - [NeetCode] (https://neetcode.io/practice)  
+    - [NeetCode](https://neetcode.io/practice)  
 
 - Build projects that interests you 
 
